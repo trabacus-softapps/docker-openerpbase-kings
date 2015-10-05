@@ -53,8 +53,8 @@ RUN pip install --upgrade --use-wheel --no-index --pre \
 # Compiling PhantomJS from source
 
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
-RUN TERM=linux apt-get update && \
-    TERM=linux apt-get -yq install \
+RUN TERM=linux apt-get update -qq && apt-get upgrade -y
+RUN TERM=linux apt-get -yq install \
     git \
     build-essential \
     g++ \
@@ -65,19 +65,14 @@ RUN TERM=linux apt-get update && \
     perl \
     libsqlite3-dev \
     libfontconfig1-dev \
-    libexpat1-dev \
-    libfontconfig1 \
-    libfreetype6-dev \
-    pkg-config \
     libicu-dev \
     libfreetype6 \
     libssl-dev \
     libpng-dev \
     libjpeg-dev \
-    libx11-dev \
-    libxext-dev
-RUN TERM=linux yes | apt-get install -yq ttf-mscorefonts-installer
-RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+    libqt5webkit5-dev
+#RUN TERM=linux yes | apt-get install -yq ttf-mscorefonts-installer
+RUN TERM=linux apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV PHANTOM_JS_TAG 2.0.0
 
