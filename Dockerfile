@@ -56,21 +56,16 @@ RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse"
 RUN TERM=linux apt-get update -qq && apt-get upgrade -y
 RUN TERM=linux apt-get -yq install \
     git \
-    build-essential \
-    g++ \
     flex \
     bison \
     gperf \
     ruby \
-    perl \
     libsqlite3-dev \
     libfontconfig1-dev \
     libicu-dev \
-    libfreetype6 \
     libssl-dev \
     libpng-dev \
-    libjpeg-dev \
-    libqt5webkit5-dev
+    libjpeg-dev 
 #RUN TERM=linux yes | apt-get install -yq ttf-mscorefonts-installer
 RUN TERM=linux apt-get clean && rm -rf /var/lib/apt/lists/*
 
