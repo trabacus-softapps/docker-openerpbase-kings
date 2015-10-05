@@ -78,7 +78,7 @@ RUN TERM=linux apt-get update && \
     libjpeg-dev \
     libx11-dev \
     libxext-dev
-RUN yes | apt-get install -y ttf-mscorefonts-installer
+RUN TERM=linux yes | apt-get install -yq ttf-mscorefonts-installer
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV PHANTOM_JS_TAG 2.0.0
