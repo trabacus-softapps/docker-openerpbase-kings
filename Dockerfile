@@ -59,6 +59,7 @@ RUN dpkg -i /opt/sources/wkhtmltox.deb
 
 # Compiling PhantomJS from source
 
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
 RUN TERM=linux apt-get update && \
     TERM=linux apt-get -yq install \
     git \
