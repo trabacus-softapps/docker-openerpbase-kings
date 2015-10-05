@@ -50,13 +50,6 @@ RUN pip install --upgrade --use-wheel --no-index --pre \
         --find-links=https://googledrive.com/host/0Bz-lYS0FYZbIfklDSm90US16S0VjWmpDQUhVOW1GZlVOMUdXb1hENFFBc01BTGpNVE1vZGM \
         --requirement=/opt/sources/pip-req.txt
 
-# must unzip this package to make it visible as an odoo external dependency
-RUN easy_install -UZ py3o.template
-
-# install wkhtmltopdf based on QT5
-ADD http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb /opt/sources/wkhtmltox.deb
-RUN dpkg -i /opt/sources/wkhtmltox.deb
-
 # Compiling PhantomJS from source
 
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
@@ -88,6 +81,13 @@ RUN git clone https://github.com/ariya/phantomjs.git /tmp/phantomjs && \
   cd /tmp/phantomjs && git checkout $PHANTOM_JS_TAG && \
   ./build.sh --confirm && mv bin/phantomjs /usr/local/bin && \
   rm -rf /tmp/phantomjs
+
+# must unzip this package to make it visible as an odoo external dependency
+RUN easy_install -UZ py3o.template
+
+# install wkhtmltopdf based on QT5
+ADD http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb /opt/sources/wkhtmltox.deb
+RUN dpkg -i /opt/sources/wkhtmltox.deb
 
 # create the odoo user
 RUN adduser --home=/opt/odoo --disabled-password --gecos "" --shell=/bin/bash odoo
