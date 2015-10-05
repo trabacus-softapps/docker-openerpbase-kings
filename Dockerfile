@@ -65,6 +65,10 @@ RUN TERM=linux apt-get update && \
     perl \
     libsqlite3-dev \
     libfontconfig1-dev \
+    libexpat1-dev \
+    libfontconfig1 \
+    libfreetype6-dev \
+    pkg-config \
     libicu-dev \
     libfreetype6 \
     libssl-dev \
