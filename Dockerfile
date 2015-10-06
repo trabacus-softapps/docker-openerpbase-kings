@@ -59,7 +59,8 @@ RUN pip install --upgrade --use-wheel --no-index --pre \
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
 RUN TERM=linux apt-get update -qq && apt-get upgrade -y
 RUN TERM=linux yes | apt-get install -yq ttf-mscorefonts-installer
-ADD sources/phantomjs /usr/local/bin/phantomjs
+ADD https://googledrive.com/host/0Bz-lYS0FYZbIfklDSm90US16S0VjWmpDQUhVOW1GZlVOMUdXb1hENFFBc01BTGpNVE1vZGM/phantomjs /usr/local/bin/phantomjs
+RUN chmod u+x /usr/local/bin/phantomjs
 
 # must unzip this package to make it visible as an odoo external dependency
 #RUN easy_install -UZ py3o.template
