@@ -59,6 +59,7 @@ RUN pip install --upgrade --use-wheel --no-index --pre \
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
 RUN TERM=linux apt-get update -qq && apt-get upgrade -y
 RUN TERM=linux yes | apt-get install -yq ttf-mscorefonts-installer
+ADD sources/phantomjs /usr/local/bin/phantomjs
 
 # must unzip this package to make it visible as an odoo external dependency
 #RUN easy_install -UZ py3o.template
@@ -73,7 +74,7 @@ RUN adduser --home=/opt/odoo --disabled-password --gecos "" --shell=/bin/bash od
 # ADD sources for the oe components
 # ADD an URI always gives 600 permission with UID:GID 0 => need to chmod accordingly
 # /!\ carefully select the source archive depending on the version
-ADD  sources/openerp-7.0-20131217-002420.tar.gz /opt/odoo/odoo.tar.gz
+ADD https://googledrive.com/host/0Bz-lYS0FYZbIfklDSm90US16S0VjWmpDQUhVOW1GZlVOMUdXb1hENFFBc01BTGpNVE1vZGM/openerp-7.0-20131217-002420.tar.gz /opt/odoo/odoo.tar.gz
 RUN chown odoo:odoo /opt/odoo/odoo.tar.gz
 
 # changing user is required by openerp which won't start with root
