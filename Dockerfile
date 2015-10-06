@@ -40,7 +40,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/
                 python-lasso \
 		rlwrap \
 		libfreetype6-dev libexpat1-dev libfontconfig1 libjpeg8-dev \
-		libpng12-0 zlib1g-dev libsqlite3-0 libssl1.0.0 zlib1g-dev 
+		libpng12-0 zlib1g-dev libsqlite3-0 libssl1.0.0 zlib1g-dev \ 
 		&& rm -rf /var/lib/apt/lists/*
 ADD sources/pip-req.txt /opt/sources/pip-req.txt
 
