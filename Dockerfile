@@ -39,10 +39,10 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/
                 python-zsi \
                 python-lasso \
 		rlwrap \
-		libfreetype6-dev libexpat1-dev libfontconfig1 libjpeg8-dev \
+		libfreetype6 libexpat1-dev libfontconfig1 libjpeg8-dev \
 		libpng12-0 zlib1g-dev libsqlite3-0 libssl1.0.0 zlib1g-dev \ 
 		libsqlite3-dev libfontconfig1-dev libicu-dev libssl-dev \
-		libjpeg-dev \
+		libjpeg-dev libx11-dev libxext-dev git flex bison gperf ruby \ 
 		&& rm -rf /var/lib/apt/lists/*
 ADD sources/pip-req.txt /opt/sources/pip-req.txt
 
@@ -58,14 +58,7 @@ RUN pip install --upgrade --use-wheel --no-index --pre \
 
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
 RUN TERM=linux apt-get update -qq && apt-get upgrade -y
-RUN TERM=linux apt-get -yq install \
-    git \
-    flex \
-    bison \
-    gperf \
-    ruby \
 RUN TERM=linux yes | apt-get install -yq ttf-mscorefonts-installer
-RUN TERM=linux apt-get clean && rm -rf /var/lib/apt/lists/*
 
 ENV PHANTOM_JS_TAG 2.0.0
 
