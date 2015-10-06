@@ -40,9 +40,9 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/
                 python-lasso \
 		rlwrap \
 		libfreetype6 libexpat1-dev libfontconfig1 libjpeg8-dev \
-		libpng12-0 zlib1g-dev libsqlite3-0 libssl1.0.0 zlib1g-dev \ 
-		libsqlite3-dev libfontconfig1-dev libicu-dev libssl-dev \
-		libjpeg-dev libx11-dev libxext-dev git flex bison gperf ruby \ 
+		zlib1g-dev zlib1g-dev libsqlite3-dev libfontconfig1-dev \
+		libicu-dev libssl-dev libjpeg-dev libx11-dev libxext-dev \
+		flex bison gperf ruby libpng12-dev libfreetype6 \ 
 		&& rm -rf /var/lib/apt/lists/*
 ADD sources/pip-req.txt /opt/sources/pip-req.txt
 
@@ -54,21 +54,14 @@ RUN pip install --upgrade --use-wheel --no-index --pre \
         --find-links=https://googledrive.com/host/0Bz-lYS0FYZbIfklDSm90US16S0VjWmpDQUhVOW1GZlVOMUdXb1hENFFBc01BTGpNVE1vZGM \
         --requirement=/opt/sources/pip-req.txt
 
-# Compiling PhantomJS from source
+# Include PhantomJS (www.phantomjs.org) is a headless WebKit scriptable with JavaScript.
 
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
 RUN TERM=linux apt-get update -qq && apt-get upgrade -y
 RUN TERM=linux yes | apt-get install -yq ttf-mscorefonts-installer
 
-ENV PHANTOM_JS_TAG 2.0.0
-
-RUN git clone https://github.com/ariya/phantomjs.git /tmp/phantomjs && \
-  cd /tmp/phantomjs && git checkout $PHANTOM_JS_TAG && \
-  ./build.sh --confirm && mv bin/phantomjs /usr/local/bin && \
-  rm -rf /tmp/phantomjs
-
 # must unzip this package to make it visible as an odoo external dependency
-RUN easy_install -UZ py3o.template
+#RUN easy_install -UZ py3o.template
 
 # install wkhtmltopdf based on QT5
 ADD http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb /opt/sources/wkhtmltox.deb
