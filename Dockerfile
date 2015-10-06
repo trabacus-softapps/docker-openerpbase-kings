@@ -41,6 +41,8 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/
 		rlwrap \
 		libfreetype6-dev libexpat1-dev libfontconfig1 libjpeg8-dev \
 		libpng12-0 zlib1g-dev libsqlite3-0 libssl1.0.0 zlib1g-dev \ 
+		libsqlite3-dev libfontconfig1-dev libicu-dev libssl-dev \
+		libjpeg-dev \
 		&& rm -rf /var/lib/apt/lists/*
 ADD sources/pip-req.txt /opt/sources/pip-req.txt
 
@@ -62,12 +64,6 @@ RUN TERM=linux apt-get -yq install \
     bison \
     gperf \
     ruby \
-    libsqlite3-dev \
-    libfontconfig1-dev \
-    libicu-dev \
-    libssl-dev \
-    libpng-dev \
-    libjpeg-dev 
 RUN TERM=linux yes | apt-get install -yq ttf-mscorefonts-installer
 RUN TERM=linux apt-get clean && rm -rf /var/lib/apt/lists/*
 
