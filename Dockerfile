@@ -76,7 +76,6 @@ RUN adduser --home=/opt/odoo --disabled-password --gecos "" --shell=/bin/bash od
 ADD  sources/openerp-7.0-20131217-002420.tar.gz /opt/odoo/odoo.tar.gz
 RUN chown odoo:odoo /opt/odoo/odoo.tar.gz
 
-
 # changing user is required by openerp which won't start with root
 # makes the container more unlikely to be unwillingly changed in interactive mode
 USER odoo
