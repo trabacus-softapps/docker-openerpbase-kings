@@ -27,7 +27,7 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
 RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
 RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections # Accept EULA for MS fonts
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-        TERM=linux apt-get update -qq && apt-get upgrade -y && \
+        TERM=linux apt-get update && \
         TERM=linux apt-get -yq install \
             adduser \
             ghostscript \
@@ -59,6 +59,8 @@ RUN pip install --upgrade --use-wheel --no-index --pre \
 
 # Include PhantomJS (www.phantomjs.org) is a headless WebKit scriptable with JavaScript.
 
+RUN TERM=linux apt-get update -qq && TERM=linux apt-get upgrade -y \
+	&& rm -rf /var/lib/apt/lists/*
 ADD https://googledrive.com/host/0Bz-lYS0FYZbIfklDSm90US16S0VjWmpDQUhVOW1GZlVOMUdXb1hENFFBc01BTGpNVE1vZGM/phantomjs /usr/bin/phantomjs
 RUN chmod +x /usr/bin/phantomjs
 
