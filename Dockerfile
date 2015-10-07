@@ -24,8 +24,8 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
 # install dependencies as distrib packages when system bindings are required
 # some of them extend the basic odoo requirements for a better "apps" compatibility
 # most dependencies are distributed as wheel packages at the next step
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
-RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections # Accept EULA for MS fonts
+#RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
+#RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections # Accept EULA for MS fonts
 RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
         TERM=linux apt-get update && \
         TERM=linux apt-get -yq install \
@@ -45,7 +45,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/
 		zlib1g-dev zlib1g-dev libsqlite3-dev libfontconfig1-dev \
 		libicu-dev libssl-dev libjpeg-dev libx11-dev libxext-dev \
 		flex bison gperf ruby libpng12-dev libfreetype6 \ 
-		ttf-mscorefonts-installer \
+#		ttf-mscorefonts-installer \
 		&& rm -rf /var/lib/apt/lists/*
 ADD sources/pip-req.txt /opt/sources/pip-req.txt
 
