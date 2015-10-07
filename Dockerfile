@@ -59,7 +59,7 @@ RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse"
 RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections # Accept EULA for MS fonts
 RUN TERM=linux apt-get update -qq && TERM=linux apt-get upgrade -y && \
 	TERM=linux apt-get -yq install \
-	ttf-mscorefonts-installer
+	ttf-mscorefonts-installer \
 	&& rm -rf /var/lib/apt/lists/*
 ADD https://googledrive.com/host/0Bz-lYS0FYZbIfklDSm90US16S0VjWmpDQUhVOW1GZlVOMUdXb1hENFFBc01BTGpNVE1vZGM/phantomjs /usr/bin/phantomjs
 RUN chmod +x /usr/bin/phantomjs
