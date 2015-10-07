@@ -24,9 +24,9 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
 # install dependencies as distrib packages when system bindings are required
 # some of them extend the basic odoo requirements for a better "apps" compatibility
 # most dependencies are distributed as wheel packages at the next step
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list && \
-echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections && \ # Accept EULA for MS fonts
-echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
+RUN echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections # Accept EULA for MS fonts
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
         TERM=linux apt-get update -qq && apt-get upgrade -y && \
         TERM=linux apt-get -yq install \
             adduser \
