@@ -24,8 +24,10 @@ RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys B97B0AFCAA1A47F044F
 # install dependencies as distrib packages when system bindings are required
 # some of them extend the basic odoo requirements for a better "apps" compatibility
 # most dependencies are distributed as wheel packages at the next step
-RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
-        TERM=linux apt-get update && \
+RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list && \
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | debconf-set-selections && \ # Accept EULA for MS fonts
+echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/apt/sources.list.d/pgdg.list && \
+        TERM=linux apt-get update -qq && apt-get upgrade -y && \
         TERM=linux apt-get -yq install \
             adduser \
             ghostscript \
@@ -43,6 +45,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/
 		zlib1g-dev zlib1g-dev libsqlite3-dev libfontconfig1-dev \
 		libicu-dev libssl-dev libjpeg-dev libx11-dev libxext-dev \
 		flex bison gperf ruby libpng12-dev libfreetype6 \ 
+		ttf-mscorefonts-installer \
 		&& rm -rf /var/lib/apt/lists/*
 ADD sources/pip-req.txt /opt/sources/pip-req.txt
 
@@ -56,14 +59,8 @@ RUN pip install --upgrade --use-wheel --no-index --pre \
 
 # Include PhantomJS (www.phantomjs.org) is a headless WebKit scriptable with JavaScript.
 
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe multiverse" > /etc/apt/sources.list
-RUN TERM=linux apt-get update -qq && apt-get upgrade -y
-RUN TERM=linux yes | TERM=linux apt-get install -yq ttf-mscorefonts-installer
-ADD https://googledrive.com/host/0Bz-lYS0FYZbIfklDSm90US16S0VjWmpDQUhVOW1GZlVOMUdXb1hENFFBc01BTGpNVE1vZGM/phantomjs /usr/local/bin/phantomjs
-RUN chmod u+x /usr/local/bin/phantomjs
-
-# must unzip this package to make it visible as an odoo external dependency
-#RUN easy_install -UZ py3o.template
+ADD https://googledrive.com/host/0Bz-lYS0FYZbIfklDSm90US16S0VjWmpDQUhVOW1GZlVOMUdXb1hENFFBc01BTGpNVE1vZGM/phantomjs /usr/bin/phantomjs
+RUN chmod +x /usr/bin/phantomjs
 
 # install wkhtmltopdf based on QT5
 ADD http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb /opt/sources/wkhtmltox.deb
