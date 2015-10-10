@@ -42,7 +42,7 @@ RUN echo "deb http://apt.postgresql.org/pub/repos/apt/ trusty-pgdg main" > /etc/
 		libfreetype6 libexpat1-dev libfontconfig1 libjpeg8-dev \
 		zlib1g-dev zlib1g-dev libsqlite3-dev libfontconfig1-dev \
 		libicu-dev libssl-dev libjpeg-dev libx11-dev libxext-dev \
-		flex bison gperf ruby libpng12-dev libfreetype6 \ 
+		flex bison gperf ruby libpng12-dev libfreetype6 tesseract-ocr\ 
 		&& rm -rf /var/lib/apt/lists/*
 ADD sources/pip-req.txt /opt/sources/pip-req.txt
 
