@@ -3,3 +3,4 @@
 pdfminer
 pytesseract
 selenium
+pyvirtualdisplay
